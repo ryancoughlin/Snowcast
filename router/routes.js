@@ -10,12 +10,6 @@ database.connect(function(err, connection) {
 });
 
 exports.set = function(app) {
-  app.get('/', function(req, res) {
-    res.render('marketing', {
-      session: req.session,
-      rootClass: "marketing"
-    })
-  });
 
   app.route('/api/all_resorts').get(function(req, res) {
     api.getAllResorts(function(data) {

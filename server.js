@@ -19,7 +19,6 @@ app.set('views', __dirname + '/views');
 app.set('views', __dirname + '/views');
 
 
-require('./router/routes').set(app);
 server.listen(port);
 
 console.log('Started server on port:'.green, port);
