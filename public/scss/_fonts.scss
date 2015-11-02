@@ -1,0 +1,93 @@
+@font-face {
+    font-family: 'bentonsansbold';
+    src: url('/fonts/bentonsans-bold-webfont.eot');
+    src: url('/fonts/bentonsans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/bentonsans-bold-webfont.woff') format('woff'),
+         url('/fonts/bentonsans-bold-webfont.ttf') format('truetype'),
+         url('/fonts/bentonsans-bold-webfont.svg#bentonsansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'bentonsansregular';
+    src: url('/fonts/bentonsans-book-webfont.eot');
+    src: url('/fonts/bentonsans-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/bentonsans-book-webfont.woff') format('woff'),
+         url('/fonts/bentonsans-book-webfont.ttf') format('truetype'),
+         url('/fonts/bentonsans-book-webfont.svg#bentonsansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'bentonsanslight';
+    src: url('/fonts/bentonsans-light-webfont.eot');
+    src: url('/fonts/bentonsans-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/bentonsans-light-webfont.woff') format('woff'),
+         url('/fonts/bentonsans-light-webfont.ttf') format('truetype'),
+         url('/fonts/bentonsans-light-webfont.svg#bentonsansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'bentonsansextralight';
+    src: url('/fonts/bentonsans-extralight-webfont.eot');
+    src: url('/fonts/bentonsans-extralight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/bentonsans-extralight-webfont.woff') format('woff'),
+         url('/fonts/bentonsans-extralight-webfont.ttf') format('truetype'),
+         url('/fonts/bentonsans-extralight-webfont.svg#bentonsansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'homestead_displaydisplay';
+    src: url('/fonts/homestead-display-webfont.eot');
+    src: url('/fonts/homestead-display-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/homestead-display-webfont.woff') format('woff'),
+         url('/fonts/homestead-display-webfont.ttf') format('truetype'),
+         url('/fonts/homestead-display-webfont.svg#homestead_displaydisplay') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family:"Dalle";
+    src:url("/fonts/Dalle_Typeface.eot?") format("eot"),
+        url("/fonts/Dalle_Typeface.woff") format("woff"),
+        url("/fonts/Dalle_Typeface.ttf") format("truetype"),
+        url("/fonts/Dalle_Typeface.svg#Dalle") format("svg");
+        font-weight:normal;
+        font-style:normal;
+}
+
+%bentonsansbold {
+    font-family: 'bentonsansbold';
+}
+
+%bentonsansextralight {
+    font-family: 'bentonsansextralight';
+}
+
+%bentonsanslight {
+    font-family: 'bentonsanslight';
+}
+
+%bentonsans {
+    font-family: 'bentonsansregular';
+}
+
+%homestead {
+    font-family: 'homestead_displaydisplay';
+}
+
+%dalle {
+    font-family: "Dalle";
+}

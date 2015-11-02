@@ -1,0 +1,161 @@
+html.marketing {
+  background: #000;
+  @import "./clips";
+  body * {
+      -webkit-backface-visibility: hidden;
+      @include transform(translateY(0));
+  }
+  canvas {
+    z-index: 999;
+    position: fixed;
+  }
+  #mc-embedded-subscribe-form {
+    width: 100%;
+    background: #000;
+    height: 40px;
+    z-index: 1000;
+    position: fixed;
+    display: block;
+    bottom: 0px;
+    text-align: center;
+    border-top: solid 1px rgb(22, 22, 22);
+    padding: 10px 0;
+    margin-bottom: -2px;
+    input {
+      border: solid 1px rgb(60, 60, 60);
+      @include border-radius(4px);
+    }
+    input.email {
+      line-height: 26px;
+      margin-right: 20px;
+      padding: 0px 20px;
+      background: rgb(29, 29, 29);
+      color: #FFF;
+    }
+    .button {
+      cursor: pointer;
+      border: solid 1px rgb(60, 60, 60);
+      display: inline-block;
+      background: #131313;
+      color: #FFF;
+      padding: 8px 10px;
+      position: relative;
+      text-transform: uppercase;
+      @extend %bentonsansbold;
+      @include border-radius(4px);
+    }
+  }
+  #marketing_wrap {
+    position: fixed;
+    height: 700px;
+    width: 950px;
+    background-position: right;
+    z-index: 2;
+    @extend %center-fit;
+    .iphone {
+      height: 740px;
+      width: 300px;
+      background: url('/images/marketing/iphone.png') no-repeat center center;
+      margin-top: -11px;
+      background-size: 100%;
+    }
+    .logo, .outer-glow {
+      position: absolute;
+      right: 195px;
+      top: 110px;
+    }
+
+    .outer-glow {
+      z-index: -12;
+      -webkit-animation:fade 4s infinite linear;
+    }
+
+    img.icon {
+      position: absolute;
+      bottom: 4px;
+      left: -42px;
+    }
+  }
+  #mountains {
+    background: url('/images/marketing/feature-image-fade-bg.png') no-repeat 270px 110px;
+    position: fixed;
+    height: 700px;
+    width: 950px;
+    z-index: -2;
+    @extend %center-fit;
+    .scroll {
+      position: absolute;
+      height: 100%;
+      width: 3px;
+      background: rgb(46, 46, 46);
+      top: 0px;
+      left: 330px;
+    }
+  }
+  #scroll_content {
+    position: absolute;
+    min-width: 864px;
+    @extend %center-fit;
+    .images {
+      z-index: -1;
+      width: 300px;
+      float: left;
+      margin-top: 152px;
+      margin-left: 24px;
+      position: relative;
+      img {
+        width: 251px;
+        @include opacity(0.2);
+        @include transition(opacity 500ms);
+        &.active {
+          @include opacity(1);
+        }
+        @media only screen and (max-width : 320px) {
+          opacity: 1 !important;
+        }
+      }
+    }
+    .content {
+      width: 480px;
+      float: right;
+      margin-left: 60px;
+      position: relative;
+      .item {
+        position: relative;
+        margin-top: 276px;
+        @extend %bentonsansextralight;
+        &.last {
+          top: -10px;
+        }
+        h2 {
+          font-size: 49px;
+          color: #FFF;
+          margin-bottom: 10px;
+          line-height: 38px;
+          span{
+	          font-size: 32px;
+          }
+        }
+        p {
+          font-size: 22px;
+          color: #7e7e7e;
+          line-height: 28px;
+
+        }
+        .scroll_indicator {
+          position: absolute;
+          height: 266px;
+          width: 3px;
+          background: url('/images/marketing/vertical-stroke-fade.png');
+          left: -54px;
+          top: -60px;
+          img {
+            position: relative;
+            left: -4px;
+            top: 112px;
+          }
+        }
+      }
+    }
+  }
+}
