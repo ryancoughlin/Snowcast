@@ -25,16 +25,12 @@ function getAllResorts(cb) {
   });
 }
 
-/**
-* finds resorts near given lat lng
-**/
 function findNear(lng, lat, limit, distance, cb) {
   var collection  = dbConnection.collection("resorts");
   var distance    = distance || 1; //in degrees
   var limit       = limit || 50;
   var key         = lng+"-"+lat+"-"+distance+"-"+limit
   if (cachedLocation[key] != undefined) {
-        console.log("cached");
     addWeatherInfoToCollection(cachedLocation[key], function(data) {
       addResortDataToCollection(data, cb);
     });
@@ -46,8 +42,6 @@ function findNear(lng, lat, limit, distance, cb) {
         $maxDistance: 50
       }
     }
-
-    console.log(query);
 
     collection.find(query).limit(+limit).toArray(function(err, docs) {
       if(err) {
@@ -101,9 +95,6 @@ function addResortDataToCollection(docs, cb) {
   });
 }
 
-/**
-* fetches the weather info from the given lat long
-**/
 function getWeatherInfo(longitude, latitude, cb) {
   var cached = isCached(weatherCache, latitude+""+longitude)
 
@@ -124,7 +115,6 @@ function getWeatherInfo(longitude, latitude, cb) {
     });
   }
 }
-
 
 function getWeatherInfoFromId(id, cb) {
   id = parseInt(id, 10);
@@ -148,9 +138,6 @@ function getWeatherInfoFromId(id, cb) {
   });
 }
 
-/**
-* fetches the resort info from the id passed
-**/
 function getResortDataById(id, cb) {
   id = +id;
   var cached = isCached(locationCache, id);
@@ -166,7 +153,6 @@ function getResortDataById(id, cb) {
     });
   }
 }
-
 
 function isCached(store, key) {
   if (store[key] && ((new Date).getTime() - store[key].cacheTime) < 1000 * 60) {

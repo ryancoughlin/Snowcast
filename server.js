@@ -17,7 +17,7 @@ app.use(session({'cookie':{'maxAge':604800000}, 'secret': process.env.COOKIE_SEC
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('views', __dirname + '/views');
-
+require('./router/routes').set(app);
 
 server.listen(port);
 

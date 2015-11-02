@@ -2,9 +2,7 @@ var mongoose        = require('mongoose');
 var fs              = require('fs');
 var db              = mongoose.connection;
 var rawData         = JSON.parse(fs.readFileSync('allResorts.js', 'utf8')).items
-
-console.log(rawData);
-
+var Resort          = mongoose.model("Resort", resortSchema);
 var resortSchema    = new mongoose.Schema({
   id: Number,
   name: String,
@@ -14,8 +12,6 @@ var resortSchema    = new mongoose.Schema({
     index: '2d'
   }
 });
-
-var Resort            = mongoose.model("Resort", resortSchema);
 
 mongoose.connect('mongodb://ryancoughlin:lacrosse@ds049354-a0.mongolab.com:49354,ds049354-a1.mongolab.com:49354/snowcast?replicaSet=rs-ds049354');
 
@@ -35,7 +31,6 @@ db.once('open', function() {
     }
   });
 });
-
 
 function saveResorts() {
   for(var i = 0; i < rawData.length; ++i) {

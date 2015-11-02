@@ -10,13 +10,11 @@ database.connect(function(err, connection) {
 });
 
 exports.set = function(app) {
-
   app.route('/api/all_resorts').get(function(req, res) {
     api.getAllResorts(function(data) {
       res.jsonp(data);
     });
   });
-
 
   app.route("/api/near/:lng/:lat/:count").get(function(req, res) {
     api.findNear(req.params.lng, req.params.lat, req.params.count, null, function(data) {
