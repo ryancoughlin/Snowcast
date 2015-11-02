@@ -1,11 +1,14 @@
 var _               = require('underscore');
 var snocountry      = require('snocountry');
-var weathers        = require('weathers');
+var Forecast        = require('forecast.io');
 var weatherCache    = {};
 var locationCache   = {};
 var cachedLocation  = {};
 var dbConnection;
-
+var options = {
+  APIKey: process.env.FORECAST_API_KEY,
+  timeout: 1000
+};
 
 function setConnection(connection) {
   dbConnection = connection;
@@ -101,16 +104,22 @@ function addResortDataToCollection(docs, cb) {
 /**
 * fetches the weather info from the given lat long
 **/
-function getWeatherInfo(lng, lat, cb) {
-  var cached = isCached(weatherCache, lat+""+lng)
+function getWeatherInfo(longitude, latitude, cb) {
+  var cached = isCached(weatherCache, latitude+""+longitude)
+
   if (cached) {
     cb(null, cached);
   } else {
-    weathers.getWeather(lat, lng, function(err, data) {
-      if (!err) {
-        data.cacheTime = (new Date).getTime()
-        weatherCache[lat+""+lng]  = data;
-      }
+    var forecast = new Forecast(options);
+    var excludeOptions = {
+      exclude: "hourly, minutely, flags, alerts"
+    };
+
+    forecast.get(latitude, longitude, excludeOptions, function(err, res, data) {
+      if (err) throw err;
+      data.cacheTime = (new Date).getTime()
+      weatherCache[latitude+""+longitude]  = data;
+
       cb(err, data);
     });
   }
@@ -127,6 +136,7 @@ function getWeatherInfoFromId(id, cb) {
       cb(err, docs);
     } else {
       if (docs) {
+        console.log(docs)
         getWeatherInfo(docs.location[0], docs.location[1], cb)
       } else {
         cb({

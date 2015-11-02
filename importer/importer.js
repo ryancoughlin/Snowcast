@@ -9,7 +9,10 @@ var resortSchema    = new mongoose.Schema({
   id: Number,
   name: String,
   type: String,
-  location: Array
+  location: {
+    type: [Number],
+    index: '2d'
+  }
 });
 
 var Resort            = mongoose.model("Resort", resortSchema);

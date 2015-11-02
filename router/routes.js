@@ -17,31 +17,32 @@ exports.set = function(app) {
     })
   });
 
-  app.get("/api/all_resorts", function(req, res) {
+  app.route('/api/all_resorts').get(function(req, res) {
     api.getAllResorts(function(data) {
       res.jsonp(data);
     });
   });
 
-  app.get("/api/near/:lng/:lat/:count", function(req, res) {
+
+  app.route("/api/near/:lng/:lat/:count").get(function(req, res) {
     api.findNear(req.params.lng, req.params.lat, req.params.count, null, function(data) {
       res.jsonp(data);
     });
   });
 
-  app.get("/api/near/:lng/:lat/:count/:distance", function(req, res) {
+  app.route("/api/near/:lng/:lat/:count/:distance").get(function(req, res) {
     api.findNear(req.params.lng, req.params.lat, req.params.count, req.params.distance, function(data) {
       res.jsonp(data);
     });
   });
 
-  app.get("/api/get-resort-info/:id", function(req, res) {
+  app.route("/api/get-resort-info/:id").get(function(req, res) {
     api.getResortDataById(req.params.id, function(err, data) {
       res.jsonp(data);
     });
   });
 
-  app.get("/api/weather-from-id/:id", function(req, res) {
+  app.route("/api/weather-from-id/:id").get(function(req, res) {
     api.getWeatherInfoFromId(req.params.id, function(err, data) {
       if (err) {
         res.jsonp(err);
@@ -51,14 +52,14 @@ exports.set = function(app) {
     });
   });
 
-  app.get("/api/get-weather-and-resort-info-from-ids/:ids", function(req, res) {
+  app.route("/api/get-weather-and-resort-info-from-ids/:ids").get(function(req, res) {
     resorts = req.params.ids.split(',').map(function(val){return {id:val}});
     api.getWeatherAndResortInfoFromIds(resorts, function(data) {
       res.jsonp(data);
     });
   });
 
-  app.get("/api/health", function(req, res) {
+  app.route("/api/health").get(function(req, res) {
     res.json({
       uptime: process.uptime(),
       memory: coreUtil.inspect(process.memoryUsage())

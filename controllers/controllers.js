@@ -1,5 +1,5 @@
 var snocountry  = require('snocountry');
-var weathers    = require('weathers');
+var forecastio  = require('forecast.io');
 
 var weatherCache  = {};
 var locationCache = {};
@@ -14,7 +14,8 @@ function addWeatherInfo(_data, err, cb) {
     var lat = _data["items"][0].latitude
     var lng = _data["items"][0].longitude
     if (weatherCache[lat+""+lng] == undefined) {
-      weathers.getWeather(lat, lng, function(err, data) {
+      forecast = new Forecast(options);
+      forecast.get(latitude, longitude, function(error, data) {
         if (!err) {
           _data["items"][0].weather = data;
           weatherCache[lat+""+lng] = data;
