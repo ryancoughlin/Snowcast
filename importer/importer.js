@@ -13,7 +13,7 @@ var resortSchema    = new mongoose.Schema({
   }
 });
 
-mongoose.connect('mongodb://ryancoughlin:lacrosse@ds049354-a0.mongolab.com:49354,ds049354-a1.mongolab.com:49354/snowcast?replicaSet=rs-ds049354');
+mongoose.connect(process.env.DB);
 
 db.on('error', function(e) {
   console.log("error connecting" + JSON.stringify(e));
