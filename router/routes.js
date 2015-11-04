@@ -1,9 +1,9 @@
-var database      = require('../util/database_interface');
-var controllers   = require('../controllers/controllers');
-var moment        = require('moment');
-var util          = require('../util/util');
-var api           = require('../util/api');
-var coreUtil      = require('util');
+const database      = require('../util/database_interface');
+const controllers   = require('../controllers/controllers');
+const moment        = require('moment');
+const util          = require('../util/util');
+const api           = require('../util/api');
+const coreUtil      = require('util');
 
 database.connect(function(err, connection) {
   api.setConnection(connection)
@@ -16,14 +16,13 @@ exports.set = function(app) {
     });
   });
 
-  app.route("/api/near/:lng/:lat/:count").get(function(req, res) {
-    api.findNear(req.params.lng, req.params.lat, req.params.count, null, function(data) {
-      res.jsonp(data);
-    });
-  });
+  app.route("/api/near/").get(function(req, res) {
+    const longitude = req.query.longitude
+    const latitude = req.query.latitude
+    const limit = req.query.limit
+    const distance = req.query.distance
 
-  app.route("/api/near/:lng/:lat/:count/:distance").get(function(req, res) {
-    api.findNear(req.params.lng, req.params.lat, req.params.count, req.params.distance, function(data) {
+    api.findNear(longitude, latitude, +limit, distance, function(data) {
       res.jsonp(data);
     });
   });
