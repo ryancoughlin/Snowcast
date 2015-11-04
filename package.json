@@ -6,22 +6,25 @@
   "dependencies": {
     "body-parser": "latest",
     "colors": "latest",
-    "cookie-parser": "latest",
     "connect": "latest",
+    "cookie-parser": "latest",
+    "dotenv": "latest",
     "express": "latest",
     "express-session": "latest",
     "forecast.io": "latest",
-    "dotenv": "latest",
     "jade": "~0.27.7",
     "moment": "latest",
     "mongodb": "latest",
+    "object-extend": "^0.5.0",
     "snocountry": "latest",
     "teleportd": "latest",
     "underscore": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  },
   "scripts": {
-    "test": "mocha test/*.coffee -r coffee-script -t 10000",
+    "test": "mocha -R spec -u tdd --slow 900 $(find tests -name 'test/*.js')",
     "start": "node server.js"
   },
   "repository": {

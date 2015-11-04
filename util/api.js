@@ -126,7 +126,6 @@ function getWeatherInfoFromId(id, cb) {
       cb(err, docs);
     } else {
       if (docs) {
-        console.log(docs)
         getWeatherInfo(docs.location[0], docs.location[1], cb)
       } else {
         cb({

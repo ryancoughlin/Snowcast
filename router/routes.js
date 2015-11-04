@@ -4,6 +4,7 @@ const moment        = require('moment');
 const util          = require('../util/util');
 const api           = require('../util/api');
 const coreUtil      = require('util');
+const objectExtend  = require('object-extend');
 
 database.connect(function(err, connection) {
   api.setConnection(connection)
@@ -23,6 +24,11 @@ exports.set = function(app) {
     const distance = req.query.distance
 
     api.findNear(longitude, latitude, +limit, distance, function(data) {
+        data.data = data.data.map(function(resort) {
+            objectExtend(resort, resort.resortInfo.items[0]);
+            delete resort.resortInfo;
+            return resort;
+        })
       res.jsonp(data);
     });
   });
