@@ -4,7 +4,7 @@ var MongoClient     = require('mongodb').MongoClient;
 var connection;
 
 function connect(cb) {
-  MongoClient.connect("mongodb://ryancoughlin:lacrosse@ds049354-a0.mongolab.com:49354,ds049354-a1.mongolab.com:49354/snowcast?replicaSet=rs-ds049354", function(err, db) {
+  MongoClient.connect(process.env.DB, function(err, db) {
     if(!err) {
       connection = db;
       console.log("* DB: Connected".green);
