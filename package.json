@@ -1,0 +1,41 @@
+{
+  "name": "snowcast",
+  "version": "v0.1.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "latest",
+    "colors": "latest",
+    "connect": "latest",
+    "cookie-parser": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "express-session": "latest",
+    "forecast.io": "latest",
+    "jade": "~0.27.7",
+    "moment": "latest",
+    "mongodb": "latest",
+    "object-extend": "^0.5.0",
+    "snocountry": "latest",
+    "teleportd": "latest",
+    "underscore": "latest"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  },
+  "scripts": {
+    "test": "mocha -R spec -u tdd --slow 900 $(find tests -name 'test/*.js')",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.org/samccone/snowcast.git"
+  },
+  "subdomain": "snowcast",
+  "author": "Sam Saccone",
+  "license": "BSD",
+  "domains": [
+    "snowcastapp.com",
+    "www.snowcastapp.com"
+  ]
+}
