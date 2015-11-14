@@ -4,27 +4,27 @@
   "description": "ERROR: No README.md file found!",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "latest",
-    "colors": "latest",
-    "connect": "latest",
-    "cookie-parser": "latest",
-    "dotenv": "latest",
-    "express": "latest",
-    "express-session": "latest",
-    "forecast.io": "latest",
-    "jade": "~0.27.7",
-    "moment": "latest",
-    "mongodb": "latest",
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "catbox-memory": "^2.0.1",
+    "colors": "^1.1.2",
+    "dotenv": "^1.2.0",
+    "forecast.io": "0.0.9",
+    "glue": "^2.4.0",
+    "hapi": "^11.1.0",
+    "hapi-mongodb": "^4.1.0",
+    "hapi-route-manager": "^1.1.0",
+    "inert": "^3.2.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "mongoose": "^4.2.5",
     "object-extend": "^0.5.0",
-    "snocountry": "latest",
-    "teleportd": "latest",
-    "underscore": "latest"
+    "snocountry": "0.0.2",
+    "teleportd": "^0.1.29"
   },
-  "devDependencies": {
-    "mocha": "^2.3.3"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test": "mocha -R spec -u tdd --slow 900 $(find tests -name 'test/*.js')",
+    "test": "mocha test/*.coffee -r coffee-script -t 10000",
     "start": "node server.js"
   },
   "repository": {

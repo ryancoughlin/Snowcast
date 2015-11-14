@@ -1,24 +1,32 @@
-const port          = process.env.PORT || 9999;
-const express       = require('express');
-const http          = require('http');
-const colors        = require('colors');
-const bodyParser    = require('body-parser');
-const cookieParser  = require('cookie-parser');
-const session       = require('express-session');
-const dotenv        = require('dotenv');
-const app           = express();
-const server        = http.createServer(app);
+const dotenv = require('dotenv');
+dotenv.load();
 
-dotenv.load()
-app.use(express.static(__dirname+'/public'));
-app.use(bodyParser.json());
-app.use(cookieParser(process.env.COOKIE_SECRET || 'zip zap foo'));
-app.use(session({'cookie':{'maxAge':604800000}, 'secret': process.env.COOKIE_SECRET || 'zip zap foo'}));
-app.set('view engine', 'jade');
-app.set('views', __dirname + '/views');
-app.set('views', __dirname + '/views');
-require('./router/routes').set(app);
+const Glue = require('glue');
+const colors = require('colors');
+const Inert = require('inert');
+const manifest = require('./manifest.js')
 
-server.listen(port);
+var options = {
+    relativeTo: __dirname
+};
 
-console.log('Started server on port:'.green, port);
+Glue.compose(manifest, options, function (err, server) {
+    if (err) throw err;
+
+    server.route({
+        method: 'GET',
+        path: '/{path*}',
+        handler: {
+            directory: {
+                path: './public',
+                listing: false,
+                index: true
+            }
+        }
+    });
+
+
+    server.start(function () {
+        console.log('Started server on port:'.green, server.info.port);
+    });
+});
