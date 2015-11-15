@@ -4,8 +4,8 @@ var Joi = require('joi'),
     path = require('path'),
     Boom = require('boom'),
     a = require('async'),
+    phrases = require('../../../phrases.json'),
     objectExtend = require('object-extend');
-;
 
 var ListResorts = {
     method: 'GET',
@@ -13,11 +13,10 @@ var ListResorts = {
         description: 'List All Resorts',
         validate: {
             query: Joi.object().keys({
-                lng: Joi.number().description('the id for the user'),
-                lat: Joi.number().description('the id for the user'),
-                limit: Joi.number().default(50).description('the id for the user'),
-                distance: Joi.number().description('the id for the user')
-
+                lng: Joi.number().description('the current lng of the user'),
+                lat: Joi.number().description('he current lat of the user'),
+                limit: Joi.number().default(50).description('max number of results'),
+                distance: Joi.number().description('distance from the user to look in meeters')
             })
         }
     },
@@ -108,6 +107,108 @@ var ListResorts = {
                     done(null, resorts);
                 });
             },
+
+            function phraseGenerator(resorts, done) {
+                a.forEachOf(resorts, function(resort, i, next) {
+                    //resorts[i].
+                    var weatherScore = 0;
+                    var NewSnow = 0;
+                    var weatherType = resort.currentWeather.summary;
+                    var temp = resort.currentWeather.apparentTemperature;
+                    var wind = resort.currentWeather.windSpeed;
+                    var depth = resort.avgBaseDepthMin;
+
+                    if(depth < 2) {
+                        weatherScore -= 100;
+                    }
+
+                    switch(true) {
+                        case (wind < 20):
+                            //Alot
+                            weatherScore += 1
+                        break;
+                        case (wind < 10):
+                            // Little
+                            weatherScore += 2
+                        break;
+                        case (wind < 5):
+                            // Little
+                            weatherScore += 3
+                        break;
+                    }
+
+                    switch(true) {
+                        case (temp < 32 && temp > 15):
+                            //Alot
+                            weatherScore += 3
+                        break;
+                        case (temp > 35):
+                            // Little
+                            weatherScore -= 4
+                        break;
+                        case (temp < 15):
+                            // Little
+                            weatherScore -= 4
+                        break;
+                    }
+
+                    switch(true) {
+                        case (NewSnow > 10):
+                            //Alot
+                            weatherScore += 3
+                        break;
+                        case (NewSnow > 5):
+                            // Little
+                            weatherScore += 2
+                        break;
+                        default:
+                            // none
+                            weatherScore += 1
+                        break;
+                    }
+
+                    switch(weatherType) {
+                        case 'clear-day':
+                        case 'clear-night':
+                        case 'snow':
+                            // Good
+                            weatherScore += 3
+                        break;
+                        case "sleet":
+                        case "wind":
+                        case "fog":
+                        case "rain":
+                            // Bad
+                            weatherScore += 2
+                        break;
+                        default:
+                            // Decent
+                            weatherScore += 1
+                        break;
+                    }
+
+                    if(weatherScore < 0) {
+                        weatherScore = 0;
+                    }
+
+                    if(weatherScore > 9) {
+                        weatherScore = 9;
+                    }
+
+                    if(phrases[weatherScore]) {
+                        resorts[i].phrase = phrases[weatherScore][Math.floor(Math.random() * phrases[weatherScore].length)];
+                    } else {
+                        console.log(`You need a phrase for when scores are $weatherScore`);
+                    }
+
+                    return next();
+
+                }, function(err) {
+                    if( err ) return done(Boom.badImplementation());
+
+                    done(null, resorts);
+                });
+            }
         ], function(err, resorts) {
 
             return reply(err || resorts);
