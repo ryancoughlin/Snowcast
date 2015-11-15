@@ -23,6 +23,28 @@ exports.register = function (server, options, done) {
             expiresAt: '12:00'
         }
     });
+
+    server.method('weather.current', function(lat, lng, next) {
+        var forecast = new Forecast({
+          APIKey: process.env.FORECAST_API_KEY,
+          timeout: 2000
+        });
+
+        var excludeOptions = {
+          exclude: "daily, hourly, minutely, flags, alerts"
+        };
+
+        forecast.get(lat, lng, excludeOptions, function(err, res, data) {
+          if (err) return next(err);
+
+          next(null, data);
+        });
+    }, {
+        cache: {
+            generateTimeout: false,
+            expiresAt: '12:00'
+        }
+    });
     return done();
 };
 

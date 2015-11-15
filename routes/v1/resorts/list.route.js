@@ -44,10 +44,62 @@ var ListResorts = {
                 });
             },
 
+            function addResortDetails(resorts, done) {
+                var resortIDs = Object.keys(resorts).map(function(i){
+                    return resorts[i].id
+                });
+
+                resortAPI.details(resortIDs.join(','), function(err, detailsForResorts) {
+                    if( err ) return done(Boom.badImplementation());
+
+                    a.forEachOf(detailsForResorts.items, function(resortDetails, i, next) {
+
+                        if(!resortDetails) {
+                            console.log(`${resort.id} no longer exists`);
+                            resorts[i] = {
+                                id: resort.id
+                            }
+                            return next();
+                        }
+
+                        resorts[i] = {
+                            id: resortDetails.id,
+                            location: resorts[i].location,
+                            name: resortDetails.name,
+                            type: resortDetails.type,
+                            reportDateTime: resortDetails.reportDateTime,
+                            primarySurfaceCondition: resortDetails.primarySurfaceCondition,
+                            phrase: "Powder day!",
+                            avgBaseDepthMax: resortDetails.avgBaseDepthMax,
+                            avgBaseDepthMin: resortDetails.avgBaseDepthMin,
+                            snowLast48Hours: resortDetails.snowLast48Hours,
+                            maxOpenDownHillTrails: resortDetails.maxOpenDownHillTrails,
+                            maxOpenDownHillMiles: resortDetails.maxOpenDownHillMiles,
+                            maxOpenDownHillAcres: resortDetails.maxOpenDownHillAcres,
+                            maxOpenDownHillLifts: resortDetails.maxOpenDownHillLifts,
+                            openDownHillTrails: resortDetails.openDownHillTrails,
+                            openDownHillLifts: resortDetails.openDownHillLifts,
+                            openDownHillMiles: resortDetails.openDownHillMiles,
+                            openDownHillAcres: resortDetails.openDownHillAcres,
+                            openDownHillPercent: resortDetails.openDownHillPercent,
+                            seasonTotal: resortDetails.seasonTotal
+                        }
+
+                        return next(err);
+
+                    }, function(err) {
+                        if( err ) return done(Boom.badImplementation());
+
+                        done(null, resorts);
+                    });
+                });
+            },
+
             function addWeatherData(resorts, done) {
                 a.forEachOf(resorts, function(resort, i, next) {
-                    weather.forcast(resort.location[1], resort.location[0], function(err, weather) {
-                        resorts[i].weather = weather;
+                    weather.current(resort.location[1], resort.location[0], function(err, weather) {
+                        resorts[i].currentWeather = weather.currently;
+                        delete resorts[i].location;
                         return next(err);
                     });
                 }, function(err) {
@@ -56,19 +108,6 @@ var ListResorts = {
                     done(null, resorts);
                 });
             },
-
-            function addResortDetails(resorts, done) {
-                a.forEachOf(resorts, function(resort, i, next) {
-                    resortAPI.details(resort.id, function(err, resortDetails) {
-                        objectExtend(resorts[i], resortDetails.items[0]);
-                        return next(err);
-                    })
-                }, function(err) {
-                    if( err ) return done(Boom.badImplementation());
-
-                    done(resorts);
-                });
-            }
         ], function(err, resorts) {
 
             return reply(err || resorts);
