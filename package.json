@@ -5,7 +5,6 @@
   "main": "server.js",
   "dependencies": {
     "async": "^1.5.0",
-    "body-parser": "^1.14.1",
     "catbox-memory": "^2.0.1",
     "colors": "^1.1.2",
     "dotenv": "^1.2.0",
@@ -18,9 +17,7 @@
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "mongoose": "^4.2.5",
-    "object-extend": "^0.5.0",
-    "snocountry": "0.0.2",
-    "teleportd": "^0.1.29"
+    "snocountry": "0.0.2"
   },
   "devDependencies": {},
   "scripts": {

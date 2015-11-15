@@ -4,8 +4,7 @@ var Joi = require('joi'),
     path = require('path'),
     Boom = require('boom'),
     a = require('async'),
-    phrases = require('../../../phrases.json'),
-    objectExtend = require('object-extend');
+    phrases = require('../../../phrases.json');
 
 var ListResorts = {
     method: 'GET',
