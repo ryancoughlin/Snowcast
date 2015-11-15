@@ -9,16 +9,23 @@ var GetForcast = {
     config: {
         description: 'Get Weather Forcast',
         validate: {
-            query: Joi.object().keys({
-                lng: Joi.number().description('the id for the user'),
-                lat: Joi.number().description('the id for the user')
-            })
+            query: {
+                resort: Joi.number().required().description('the id for the resort')
+            }
         }
     },
     handler: function(request, reply) {
         var weather = request.server.methods.weather;
+        var db = request.server.plugins['hapi-mongodb'].db;
+        var collection  = db.collection("resorts");
+        var query = {};
 
-        weather.forcast(request.query.lat, request.query.lng, reply);
+        collection.findOne({id: request.query.resort}, function(err, resort) {
+            if(err) return done(Boom.badImplamentation());
+            console.log(resort)
+
+            weather.forcast(resort.location[1], resort.location[0], reply);
+        });
     }
 };
 
