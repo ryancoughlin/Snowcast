@@ -24,7 +24,9 @@ var ListResorts = {
         var resortAPI = request.server.methods.resort;
         var db = request.server.plugins['hapi-mongodb'].db;
         var collection  = db.collection("resorts");
-        var query = {};
+        var query = {
+            type: "NA_Alpine"
+        };
 
         if(request.query.distance) {
             query.location = {
