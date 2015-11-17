@@ -82,7 +82,8 @@ var ListResorts = {
                             openDownHillMiles: resortDetails.openDownHillMiles,
                             openDownHillAcres: resortDetails.openDownHillAcres,
                             openDownHillPercent: resortDetails.openDownHillPercent,
-                            seasonTotal: resortDetails.seasonTotal
+                            seasonTotal: resortDetails.seasonTotal,
+                            status: resortDetails.resortStatus
                         }
 
                         return next(err);
