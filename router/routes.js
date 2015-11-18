@@ -17,8 +17,8 @@ exports.set = function(app) {
   });
 
   app.route("/api/near/").get(function(req, res) {
-    const longitude = req.query.longitude
-    const latitude = req.query.latitude
+    const longitude = req.query.lng
+    const latitude = req.query.lat
     const limit = req.query.limit
     const distance = req.query.distance
 
