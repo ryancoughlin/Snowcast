@@ -40,7 +40,8 @@ function findNear(lng, lat, limit, distance, cb) {
       location: {
         $nearSphere: [parseFloat(lng), parseFloat(lat)],
         $maxDistance: 50
-      }
+      },
+      type: "NA_Alpine"
     }
 
     collection.find(query).limit(+limit).toArray(function(err, docs) {
